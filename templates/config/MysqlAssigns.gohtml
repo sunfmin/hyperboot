@@ -1,0 +1,8 @@
+@{
+	var upcaseModule string
+}
+
+MySQLHost = envOrPanic("@(upcaseModule)_MYSQL_PORT_3306_TCP_ADDR", false)
+MySQLPort = envOrPanic("@(upcaseModule)_MYSQL_PORT_3306_TCP_PORT", false)
+MySQLRootPassword = envOrPanic("@(upcaseModule)_MYSQL_ENV_MYSQL_ROOT_PASSWORD", true)
+MySQLDatabase = envOrPanic("@(upcaseModule)_MYSQL_DATABASE", false)
