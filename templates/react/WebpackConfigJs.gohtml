@@ -11,7 +11,7 @@ module.exports = {
 	},
 	// devtool: 'inline-source-map',
 	output: {
-		path: "../www/",
+		path: "../www/assets/",
 		filename: "main.js"
 	},
 	module: {
@@ -24,6 +24,6 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.IgnorePlugin(/vertx/),
-		new ExtractTextPlugin("../www/main.css", { allChunks: true })
+		new ExtractTextPlugin("main.css", { allChunks: true })
 	]
 };
