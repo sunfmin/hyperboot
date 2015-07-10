@@ -11,7 +11,7 @@ func Init(data ConfigData) string {
 
 	var upcaseModule = strings.ToUpper(data.Module)
 
-	_buffer.WriteString("\npackage config\n\nimport (\n\t\"log\"\n\t\"os\"\n\t\"strings\"\n)\n\n// this is configured from env variables\nvar (\n\tEnv                 string\n\n\t")
+	_buffer.WriteString("\npackage config\n\nimport (\n\t\"log\"\n\t\"os\"\n\t\"strings\"\n)\n\n// this is configured from env variables\nvar (\n\tEnv                 string\n\tWebDir              string\n\t")
 	if data.Database == "mysql" {
 
 		_buffer.WriteString((MysqlVars()))
@@ -19,7 +19,9 @@ func Init(data ConfigData) string {
 	}
 	_buffer.WriteString("\n)\n\nfunc init() {\n\tEnv = envOrPanic(\"")
 	_buffer.WriteString(gorazor.HTMLEscape((upcaseModule)))
-	_buffer.WriteString("_ENV\", false)\n\t")
+	_buffer.WriteString("_ENV\", false)\n\tWebDir = envOrPanic(\"")
+	_buffer.WriteString(gorazor.HTMLEscape((upcaseModule)))
+	_buffer.WriteString("_WEBDIR\", false)\n\t")
 	if data.Database == "mysql" {
 
 		_buffer.WriteString((MysqlAssigns(upcaseModule)))

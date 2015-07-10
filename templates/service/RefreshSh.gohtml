@@ -1,0 +1,8 @@
+@{
+    var data ServiceData
+}
+hypermusk -pkg=@(data.ApiPkg) -impl=@(data.ServicesPkg) -lang=server -outdir=./
+gofmt -w ./@(data.Module)apihttpimpl
+# hypermusk -pkg=@(data.ApiPkg) -lang=javascript -outdir=./react
+# gorazor ./web/templates ./web/templates
+# cd react && npm install . && webpack .

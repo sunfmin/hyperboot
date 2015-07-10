@@ -14,7 +14,7 @@ func TestCreateConfig(t *testing.T) {
 	}
 
 	fmt.Println("TestCreateConfig root dir: ", dir)
-	err = services.CreateConfig(dir, "profile", "mysql")
+	err = services.CreateConfig(dir, "profile", "mysql", false)
 	if err != nil {
 		t.Error(err)
 	}

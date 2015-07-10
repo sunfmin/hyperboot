@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func createFileWithContentSkipExists(relativePath string, fullPath string, content string, withoutExistOutput bool) (err error) {
@@ -32,11 +33,17 @@ func createFileWithContentSkipExists(relativePath string, fullPath string, conte
 	}
 	defer file.Close()
 	var fsource []byte
-	fsource, err = format.Source([]byte(content))
-	if err != nil {
-		fmt.Printf("Format source code error: %s \n", err)
-		return
+	if strings.HasSuffix(relativePath, ".go") {
+		// fmt.Println(content)
+		fsource, err = format.Source([]byte(content))
+		if err != nil {
+			fmt.Printf("Format source code error: %s \n", err)
+			return
+		}
+	} else {
+		fsource = []byte(content)
 	}
+
 	_, err = io.Copy(file, bytes.NewBuffer(fsource))
 	fmt.Printf("create %s\n", relativePath)
 	return

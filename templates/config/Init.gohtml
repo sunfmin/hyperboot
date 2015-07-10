@@ -19,7 +19,7 @@ import (
 // this is configured from env variables
 var (
 	Env                 string
-
+	WebDir              string
 	@if data.Database == "mysql" {
 		@raw(MysqlVars())
 	}
@@ -27,6 +27,7 @@ var (
 
 func init() {
 	Env = envOrPanic("@(upcaseModule)_ENV", false)
+	WebDir = envOrPanic("@(upcaseModule)_WEBDIR", false)
 	@if data.Database == "mysql" {
 		@raw(MysqlAssigns(upcaseModule))
 	}

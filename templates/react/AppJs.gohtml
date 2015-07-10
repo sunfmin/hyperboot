@@ -1,0 +1,12 @@
+@{
+    var data ReactData
+}
+/* @@flow */
+
+require("./main.less");
+window.jQuery = require('jquery');
+var service = require("./configured_api.js")
+
+var React = require("react");
+var Hello = require("./components/Hello.js")
+React.render(<Hello service={service}/>, document.getElementById("react"));

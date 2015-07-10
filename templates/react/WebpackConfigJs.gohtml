@@ -1,0 +1,29 @@
+@{
+    var data ReactData
+}
+var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+module.exports = {
+	cache: true,
+	entry: {
+		web: './app.js'
+	},
+	// devtool: 'inline-source-map',
+	output: {
+		path: "../www/",
+		filename: "main.js"
+	},
+	module: {
+		loaders: [
+			{ test: /\.jsx?$/, loader: 'jsx-loader?harmony&stripTypes' },
+			{ test: /\.less$/, loader: ExtractTextPlugin.extract("css-loader!less-loader") },
+			{ test: /\.woff\d?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+		]
+	},
+	plugins: [
+		new webpack.IgnorePlugin(/vertx/),
+		new ExtractTextPlugin("../www/main.css", { allChunks: true })
+	]
+};

@@ -1,0 +1,35 @@
+@{
+    import  (
+		"strings"
+    )
+    var data ServiceData
+}
+
+@{
+	var lowerModule = strings.ToLower(data.Module)
+}
+package @(lowerModule)api
+
+import (
+	"errors"
+)
+
+var (
+	PermissionDeniedError = errors.New("permission denied.")
+)
+
+type User struct {
+	Id           string
+	Name        string
+	UpperName   string
+}
+
+
+type AppService interface {
+	GetUserService(session string) (service UserService, err error)
+}
+
+
+type UserService interface {
+	PutUser(id int, name string) (user *User, err error)
+}

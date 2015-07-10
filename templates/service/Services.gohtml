@@ -1,0 +1,37 @@
+@{
+    var data ServiceData
+}
+
+package services
+
+import (
+	"@data.ApiPkg"
+	"@data.ConfigPkg"
+	"@data.DbPkg"
+)
+
+
+type AppServiceImpl struct {
+}
+
+func (as *AppServiceImpl) GetUserService(session string) (us @(data.Module)api.UserService, err error) {
+	us = &UserServiceImpl{}
+	return
+}
+
+type UserServiceImpl struct {
+}
+
+func (us *UserServiceImpl) PutUser(id int, name string) (user * @(data.Module)api.User, err error) {
+	_ = config.Env
+	dbUser := &db.User{}
+	err = db.DB.Where(&db.User{ID: id}).Assign(&db.User{Name: name}).FirstOrCreate(dbUser).Error
+	user = &@(data.Module)api.User{
+		Name: dbUser.Name,
+	}
+	return
+}
+
+var DefaultAppService = new(AppServiceImpl)
+
+

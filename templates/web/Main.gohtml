@@ -1,0 +1,24 @@
+@{
+    var data WebData
+}
+package main
+
+import (
+	"@data.WebPkg"
+	"@data.HttpImplPkg"
+	"log"
+	"net/http"
+)
+
+func main() {
+
+	@(data.Module)apihttpimpl.AddToMux("/api", http.DefaultServeMux)
+
+	http.Handle("/", web.Routes())
+
+	log.Println("Starting Server at 9000.")
+	err := http.ListenAndServe(":9000", nil)
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
+}

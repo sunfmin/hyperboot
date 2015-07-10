@@ -1,0 +1,47 @@
+@{
+    var data WebData
+}
+package web
+
+import (
+	"@data.ConfigPkg"
+	"github.com/codegangsta/negroni"
+	"github.com/gorilla/mux"
+	"github.com/phyber/negroni-gzip/gzip"
+	"net/http"
+	"os"
+	"path"
+)
+
+func Routes() (n *negroni.Negroni) {
+
+	router := mux.NewRouter()
+
+	// router.HandleFunc("/p/{articleId}.html", Article)
+
+	n = negroni.New()
+	n.Use(gzip.Gzip(gzip.DefaultCompression))
+
+	if config.Env != "production" {
+		n.Use(negroni.NewRecovery())
+	} else {
+		n.Use(NewProductionRecovery())
+	}
+
+	webdir := path.Clean(config.WebDir)
+	if _, err := os.Stat(webdir); err != nil {
+		panic(err)
+		return
+	}
+
+	static := &negroni.Static{
+		Dir:       http.Dir(webdir),
+		Prefix:    "/@(data.Module)",
+		IndexFile: "index.html",
+	}
+
+	n.Use(static)
+	n.Use(negroni.NewLogger())
+	n.UseHandler(router)
+	return
+}

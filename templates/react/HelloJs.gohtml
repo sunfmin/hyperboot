@@ -1,0 +1,36 @@
+@{
+    var data ReactData
+}
+/* @@flow */
+
+var React = require("react");
+
+var Hello = React.createClass({
+	getInitialState: function() {
+		return {
+			name: "",
+		}
+	},
+
+	componentDidMount: function() {
+	},
+
+	render: function() : React.ReactElement {
+		return (
+				<div className="alert alert-success">
+					Hello {this.state.name}, <input ref="name" onChange={this.changeName}/>
+				</div>
+		);
+	},
+
+	changeName: function() {
+		var userserv = this.props.service.GetUserService("");
+		var self = this;
+    	userserv.PutUser(88, this.refs.name.getDOMNode().value, function(user, err){
+    		self.setState({name: user.Name});
+    	})
+  	}
+
+});
+
+module.exports = Hello;
