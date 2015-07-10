@@ -6,4 +6,5 @@ type ServiceData struct {
 	ConfigPkg   string
 	DbPkg       string
 	ServicesPkg string
+	IsApp       bool
 }

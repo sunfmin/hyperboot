@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func CreateServices(rootPath string, module string, withoutExistOutput bool) (err error) {
+func CreateServices(rootPath string, module string, isApp bool, withoutExistOutput bool) (err error) {
 	err = CreateConfig(rootPath, module, "mysql", true)
 	if err != nil {
 		return
@@ -44,7 +44,7 @@ func CreateServices(rootPath string, module string, withoutExistOutput bool) (er
 
 	f = filepath.Join(module, "", "refresh.sh")
 	cfile = filepath.Join(rootPath, f)
-	err = createFileWithContentSkipExists(f, cfile, service.RefreshSh(service.ServiceData{Module: module, ApiPkg: apiPkg, ServicesPkg: servicesPkg}), withoutExistOutput)
+	err = createFileWithContentSkipExists(f, cfile, service.RefreshSh(service.ServiceData{Module: module, ApiPkg: apiPkg, ServicesPkg: servicesPkg, IsApp: isApp}), withoutExistOutput)
 	if err != nil {
 		return
 	}

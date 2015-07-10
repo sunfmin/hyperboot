@@ -72,7 +72,7 @@ Complete documentation is available at http://github.com/sunfmin/hyperboot`,
 		Long:  `To your modules config directory, add initial sample services and api file. If it already exists, skip creating.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			pwd, _ := os.Getwd()
-			err := services.CreateServices(pwd, module, false)
+			err := services.CreateServices(pwd, module, false, false)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -102,7 +102,7 @@ Complete documentation is available at http://github.com/sunfmin/hyperboot`,
 			if err != nil {
 				fmt.Println(err)
 			}
-			err = services.CreateServices(pwd, module, false)
+			err = services.CreateServices(pwd, module, true, false)
 			if err != nil {
 				fmt.Println(err)
 			}
