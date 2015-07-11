@@ -1,0 +1,16 @@
+@{
+	import (
+		"strings"
+	)
+    var data ServiceData
+}
+@{
+	var upperModule = strings.ToUpper(data.Module)
+	var lowerModule = strings.ToLower(data.Module)
+}
+export @(upperModule)_MYSQL_PORT_3306_TCP_ADDR=localhost
+export @(upperModule)_MYSQL_ENV_MYSQL_ROOT_PASSWORD=
+export @(upperModule)_MYSQL_PORT_3306_TCP_PORT=3306
+export @(upperModule)_MYSQL_DATABASE=@(lowerModule)_development
+export @(upperModule)_ENV=development
+export @(upperModule)_WEBDIR=./www

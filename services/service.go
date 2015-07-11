@@ -49,6 +49,13 @@ func CreateServices(rootPath string, module string, isApp bool, withoutExistOutp
 		return
 	}
 
+	f = filepath.Join(module, "", "dev_env")
+	cfile = filepath.Join(rootPath, f)
+	err = createFileWithContentSkipExists(f, cfile, service.Devenv(service.ServiceData{Module: module}), withoutExistOutput)
+	if err != nil {
+		return
+	}
+
 	return
 }
 
